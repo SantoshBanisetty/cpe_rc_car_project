@@ -177,7 +177,7 @@ class image_converter:
 
 		# Create an image to draw on and an image to show the selection window
 		out_img = np.dstack((bin_imgP, bin_imgP, bin_imgP))*255
-		out_img[y1,x1] = [255, 0 , 0]  # factual points
+		out_img[y1,x1] = [0, 0 , 255]  # factual points
 		out_img[y2,x2] = [0,  255, 0]
 
 		# Generate a polygon to illustrate the search window area
@@ -198,10 +198,14 @@ class image_converter:
 		# plt.plot(fitx1, ploty, color='blue')
 		# plt.plot(fitx2, ploty, color='blue')
 		# plt.title("oriented search")
+		cv2.namedWindow("OrientedSearch", cv2.WINDOW_NORMAL)
+		cv2.resizeWindow("OrientedSearch", 600, 600)
+		cv2.imshow("OrientedSearch", result)
+		cv2.waitKey(1)
 
 		# Define conversions in x and y from pixels space to meters
-		ym_per_pix = 3.0/1280# meters per pixel in y dimension
-		xm_per_pix = 0.3/960 # meters per pixel in x dimension
+		ym_per_pix = 2.6924/1280# meters per pixel in y dimension
+		xm_per_pix = 0.5334/960 # meters per pixel in x dimension
 		# calibrated coefficients 
 		print (ym_per_pix, xm_per_pix)
 		fit1_cal = np.polyfit(ploty*ym_per_pix, fitx1*xm_per_pix, 2)
@@ -236,7 +240,7 @@ class image_converter:
 		# Warp the blank back to original image space using inverse perspective matrix (Minv)
 		newwarp = cv2.warpPerspective(color_warp, Minv, (texted_image.shape[1], texted_image.shape[0])) 
 		# Combine the result with the original image
-		result = cv2.addWeighted(texted_image, 1, newwarp, 0.3, 0)
+		result2 = cv2.addWeighted(texted_image, 1, newwarp, 0.3, 0)
 
 		# plt.figure(4)
 		# plt.imshow(result)
@@ -244,7 +248,7 @@ class image_converter:
 
 		cv2.namedWindow("Result", cv2.WINDOW_NORMAL)
 		cv2.resizeWindow("Result", 600, 600)
-		cv2.imshow("Result", result)
+		cv2.imshow("Result", result2)
 		cv2.waitKey(1)
 
 
@@ -260,9 +264,11 @@ class image_converter:
 		#dst = np.float32([[0,0],[639,0],[0,479],[639, 479]])
 
 
-		src = np.float32([[140, 500],[1040,500],[0,790],[1270,790]])
-		dst = np.float32([[0,0],[1279,0],[0,951],[1279, 951]])
-
+		# src = np.float32([[140, 500],[1040,500],[0,790],[1270,790]])
+		# dst = np.float32([[0,0],[1279,0],[0,951],[1279, 951]])
+		
+		src = np.float32([[370, 200],[990,200],[65,780],[1254,780]])
+		dst = np.float32([[0,0],[1279,0],[0,951],[1279, 951]])		
 
 
 		if first == True:

@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 
 from std_msgs.msg import String
+from std_msgs.msg import Float64
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 

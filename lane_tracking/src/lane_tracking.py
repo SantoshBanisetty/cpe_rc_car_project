@@ -24,6 +24,8 @@ class image_converter:
 	def __init__(self):
 		self.image_pub = rospy.Publisher("image_topic_2",Image, queue_size=10)
 
+                #self.Float64 = rospy.Publisher("my_state",Float64, queue_size=10)
+
 		self.bridge = CvBridge()
 		self.image_sub = rospy.Subscriber("/usb_cam/image_raw",Image,self.callback)
 

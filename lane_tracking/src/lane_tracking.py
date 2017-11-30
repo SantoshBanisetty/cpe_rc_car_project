@@ -296,7 +296,13 @@ class image_converter:
 			self.pipeline(cv_image, src, dst, sendFit1, SendFit2)
 
 		try:
+
+		#self.image_pub = rospy.Publisher("image_topic_2",Image, queue_size=10)
+
+                #self.Float64 = rospy.Publisher("my_state",Float64, queue_size=10)
+
 			self.image_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
+                        #self.Float64.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
 		except CvBridgeError as e:
 			print(e)
 

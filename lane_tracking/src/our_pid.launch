@@ -1,8 +1,8 @@
 <launch>
     <node name="steering_pid" pkg="pid" type="controller" output="screen" >
-      <param name="Kp" value="45.0" />
-      <param name="Ki" value="5.0" />
-      <param name="Kd" value="2.7" />
+      <param name="Kp" value="30.0" />
+      <param name="Ki" value="10.0" />
+      <param name="Kd" value="0.5" />
       <param name="upper_limit" value="45" />
       <param name="lower_limit" value="-45" />
       <param name="windup_limit" value="45" />
@@ -12,7 +12,7 @@
       <param name="min_loop_frequency" value="95.0" />
       <param name="set_point" value="0" /> 
       <!--param name="topic_from_controller" value="my_control_effort" /--> <!--The plant must subscribe to this topic. Default is "control_effort"-->
-      <!--param name="topic_from_plant" value="my_state" /--> <!--subscribes to for updates from the plant. Default is "state"-->    
+      <param name="topic_from_plant" value="my_state" /> <!--subscribes to for updates from the plant. Default is "state"-->    
     </node>
    
     	
@@ -20,9 +20,9 @@
       <param name="plant_order" value="2" />
     </node>
    
-   
+    <!--
     <node name="setpoint_node" pkg="pid" type="setpoint_node" output="screen" />    
-   
+    -->
 	
 
     <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >

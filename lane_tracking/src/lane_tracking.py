@@ -24,7 +24,7 @@ class image_converter:
 	def __init__(self):
 		self.image_pub = rospy.Publisher("image_topic_2",Image, queue_size=10)
 
-                #self.Float64 = rospy.Publisher("my_state",Float64, queue_size=10)
+                self.state_pub = rospy.Publisher("my_state",Float64, queue_size=10)
 
 		self.bridge = CvBridge()
 		self.image_sub = rospy.Subscriber("/usb_cam/image_raw",Image,self.callback)
@@ -223,6 +223,7 @@ class image_converter:
 
 		text1 = "Lane Curvatures, left: {0:.0f} m, right: {1:.0f} m".format(curv1,curv2)
 		text2 = "Car is right to the center by {0:.2f} m".format(off_center)
+		self.state_pub.publish(off_center)
 		texted_image =cv2.putText(img=np.copy(imageP), text= text1, org=(50,50),
 		                          fontFace=3, fontScale=1, color=(0,0,255), thickness=2)
 		cv2.putText(img=texted_image, text= text2, org=(50,100),
@@ -299,10 +300,10 @@ class image_converter:
 
 		#self.image_pub = rospy.Publisher("image_topic_2",Image, queue_size=10)
 
-                #self.Float64 = rospy.Publisher("my_state",Float64, queue_size=10)
+                #self.state_pub = rospy.Publisher("my_state",Float64, queue_size=10)
 
 			self.image_pub.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
-                        #self.Float64.publish(self.bridge.cv2_to_imgmsg(cv_image, "bgr8"))
+                        
 		except CvBridgeError as e:
 			print(e)
 

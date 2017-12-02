@@ -153,6 +153,10 @@ class image_converter:
 		# plt.figure(2)
 		# #plt.subplot(236)
 		# plt.imshow(bin_imgP)
+		cv2.namedWindow("transform", cv2.WINDOW_NORMAL)
+		cv2.resizeWindow("transform", 600, 600)
+		cv2.imshow("transform", whiteP)
+		cv2.waitKey(1)
 
 		nonzero = bin_imgP.nonzero()
 		nonzeroy = np.array(nonzero[0])
@@ -168,9 +172,14 @@ class image_converter:
 		# extract left and right line pixel positions
 		x1,y1 = nonzerox[lane1_index], nonzeroy[lane1_index]
 		x2,y2 = nonzerox[lane2_index], nonzeroy[lane2_index]
+		print ("===================")
+		print ("x1, y1, x2, y2 {0:d}, {1:d}, {2:d}, {3:d}".format(len(x1), len(y1), len(x2), len(y2)))
 		# New fitting parameters
-		fit1 = np.polyfit(y1, x1, 2)
-		fit2 = np.polyfit(y2, x2, 2)
+		if len(x1) and len(y1) and len(x2) and len(y2) != 0:
+			fit1 = np.polyfit(y1, x1, 2)
+			fit2 = np.polyfit(y2, x2, 2)
+		else:
+			first = True
 
 		# Generate x and y values for plotting
 		ploty = np.linspace(0, bin_imgP.shape[0]-1, bin_imgP.shape[0] )
